@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SearchInput() {
+export default function SearchInput({ value, handleChange, handleSearch }) {
   const classes = useStyles();
   return (
     <div className={classes.search}>
@@ -53,11 +53,14 @@ export default function SearchInput() {
         <SearchIcon />
       </div>
       <InputBase
+        value={value}
+        onChange={(e) => handleChange(e.target.value)}
         placeholder="Search…"
         classes={{
           root: classes.inputRoot,
           input: classes.inputInput,
         }}
+        onKeyPress={handleSearch}
         inputProps={{ "aria-label": "search" }}
       />
     </div>

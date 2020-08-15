@@ -1,10 +1,14 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import { Route, Switch } from "react-router-dom";
 import Header from "./Components/Header";
-import HomePage from "./Containers/HomePage";
-import MoviePage from "./Containers/MoviePage";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import GlobalStyle from "./GlobalStyle";
+import Spinner from "./Components/Spinner";
+
+const HomePage = lazy(() => import("./Containers/HomePage"));
+const MoviePage = lazy(() => import("./Containers/MoviePage"));
+const SearchPage = lazy(() => import("./Containers/SearchPage"));
+const CategoryPage = lazy(() => import("./Containers/CategoryPage"));
 
 const theme = createMuiTheme({
   colors: {
@@ -27,12 +31,29 @@ const theme = createMuiTheme({
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <GlobalStyle />
-      <Header />
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route exact path="/movie/:id" component={MoviePage} />
-      </Switch>
+      <div
+        style={{
+          background: "#264653",
+          minHeight: "100vh",
+          overflowX: "hidden",
+          paddingBottom: 100,
+        }}
+      >
+        <GlobalStyle />
+        <Header />
+        <Switch>
+          <Suspense fallback={<Spinner />}>
+            <Route exact path="/" component={HomePage} />
+            <Route exact path="/movie/:id" component={MoviePage} />
+            <Route
+              exact
+              path="/category/:id/:pageId?"
+              component={CategoryPage}
+            />
+            <Route exact path="/search/:id/:pageId?" component={SearchPage} />
+          </Suspense>
+        </Switch>
+      </div>
     </ThemeProvider>
   );
 }
