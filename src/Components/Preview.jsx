@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundPosition: "center",
-    backgroundSize: "100% 600px",
+    backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     boxShadow: `inset 0 0 30px 30px ${theme.colors.design.one}`,
   },

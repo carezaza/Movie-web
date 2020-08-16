@@ -81,7 +81,18 @@ function PreviewHome() {
             </Button>
           </StyledLink>
         </Typography>
-        <Collection />
+        <div
+          style={{
+            minHeight: 500,
+            border: "1px solid #ccc",
+            padding: 10,
+            margin: 10,
+            display: "grid",
+            placeItems: "center",
+          }}
+        >
+          <Collection />
+        </div>
       </div>
     </React.Fragment>
   );
