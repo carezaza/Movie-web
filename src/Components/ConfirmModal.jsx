@@ -51,8 +51,8 @@ export default function ConfirmModal({ open, time }) {
           height: "35%",
         }}
       >
-        {time > 3 ? (
-          <p style={{ fontSize: 100 }}>{time - 4}</p>
+        {time > 2 ? (
+          <p style={{ fontSize: 100 }}>{time - 3}</p>
         ) : (
           <p style={{ fontSize: 16 }}>Redirecting to home... {time}</p>
         )}

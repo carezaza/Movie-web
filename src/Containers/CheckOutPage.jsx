@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 function CheckOutPage({ totalQuantity, totalPrice }) {
   const classes = useStyles();
   const [isConfirm, setConfirm] = useState(false);
-  const [time, setTIme] = useState(64);
+  const [time, setTIme] = useState(63);
   const { carts } = useSelector((state) => state.cartReducer);
   const dispatch = useDispatch();
 
