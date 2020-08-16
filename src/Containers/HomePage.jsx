@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Button } from "@material-ui/core";
+import { Button, Typography } from "@material-ui/core";
 import Preview from "../Components/Preview";
 import Collection from "../Components/Collection";
 import { useDispatch, useSelector } from "react-redux";
@@ -23,13 +23,6 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     marginTop: 20,
-    color: theme.colors.design.three,
-  },
-  button: {
-    background: theme.colors.design.four,
-    "&:hover": {
-      background: theme.colors.design.five,
-    },
   },
 }));
 
@@ -88,7 +81,10 @@ export default function HomePage() {
     <div className={classes.root}>
       <Preview movie={movies[num]} handleSwitch={handleSwitch} />
       <div className={classes.container}>
-        <h2
+        <Typography
+          color="secondary"
+          variant="h5"
+          component="h5"
           className={classes.title}
           style={{
             display: "flex",
@@ -97,10 +93,11 @@ export default function HomePage() {
         >
           Popular
           <StyledLink to="/category/popular">
-            {" "}
-            <Button className={classes.button}>See more</Button>
+            <Button variant="outlined" color="secondary">
+              See more
+            </Button>
           </StyledLink>
-        </h2>
+        </Typography>
 
         <Collection />
       </div>

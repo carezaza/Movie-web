@@ -7,18 +7,19 @@ const useStyles = makeStyles((theme) => ({
     cursor: "pointer",
     padding: "3px 10px",
     fontWeight: 600,
-    border: `1px solid ${theme.colors.design.two}`,
+    border: `1px solid #ccc`,
     outline: "none",
-    borderRadius: 2,
-    backgroundColor: "#fff",
+    borderRadius: 5,
+    margin: "0 1px",
+    backgroundColor: "#ccc",
     "&:hover": {
       backgroundColor: "rgba(255,255,255,.8)",
     },
   },
   active: {
-    background: theme.colors.design.three,
+    background: "#f50057",
     "&:hover": {
-      backgroundColor: theme.colors.design.three,
+      backgroundColor: "#f50057",
     },
   },
 }));
@@ -26,20 +27,24 @@ const useStyles = makeStyles((theme) => ({
 export default function Pagination({ currentPage, TotalPages, paginate }) {
   const classes = useStyles();
   const [arr, setArr] = React.useState([]);
+  const myPage = currentPage ? currentPage : 1;
 
   React.useEffect(() => {
     if (arr.length) {
       setArr([]);
     }
+
     for (let i = 0; i < 11; i++) {
-      const page = currentPage - 5 > 1 ? currentPage - 5 + i : 1 + i;
+      const page = myPage - 5 > 1 ? myPage - 5 + i : 1 + i;
       if (TotalPages > 0) {
         if (page <= TotalPages) {
           arr.push(page);
+        } else {
+          break;
         }
       }
     }
-  }, [currentPage, arr, setArr, TotalPages]);
+  }, [myPage, setArr, arr, TotalPages]);
 
   if (!arr.length) return null;
   return (
@@ -47,13 +52,13 @@ export default function Pagination({ currentPage, TotalPages, paginate }) {
       <ul style={{ display: "flex", flexDirection: "row" }}>
         {!arr.find((a) => a === 1) && (
           <li className={classes.button} onClick={() => paginate("first")}>
-            {"<<"}
+            first
           </li>
         )}
 
-        {currentPage > 1 && (
+        {myPage > 1 && (
           <li className={classes.button} onClick={() => paginate("prev")}>
-            {"<"}
+            prev
           </li>
         )}
 
@@ -61,21 +66,21 @@ export default function Pagination({ currentPage, TotalPages, paginate }) {
           <li
             key={a}
             className={`${classes.button} ${
-              a.toString() === currentPage && classes.active
+              a.toString() === myPage.toString() && classes.active
             }`}
             onClick={() => paginate(a)}
           >
             {a}
           </li>
         ))}
-        {currentPage < TotalPages && (
+        {myPage < TotalPages && (
           <li className={classes.button} onClick={() => paginate("next")}>
-            {">"}
+            next
           </li>
         )}
         {!arr.find((a) => a === TotalPages) && (
           <li className={classes.button} onClick={() => paginate("last")}>
-            {">>"}
+            last
           </li>
         )}
       </ul>

@@ -1,5 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { Typography } from "@material-ui/core/";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Collection from "../../Components/Collection";
@@ -18,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     padding: 10,
   },
   title: {
-    color: theme.colors.design.four,
+    margin: "20px 0",
   },
 }));
 
@@ -49,7 +50,19 @@ function WithPagination({ params, type, loading }) {
   return (
     <div className={classes.root}>
       <div className={classes.container}>
-        <h3 style={{ color: "white" }}>{`${type}: ${id}`}</h3>
+        <Typography
+          className={classes.title}
+          variant="h5"
+          component="h5"
+          color="secondary"
+        >{`${
+          type.charAt(0).toUpperCase() + type.slice(1, type.length)
+        }: ${id}`}</Typography>
+        <Pagination
+          currentPage={pageId}
+          TotalPages={totalPages}
+          paginate={handlePaginate}
+        />
         <Collection isLoading={loading} />
         <Pagination
           currentPage={pageId}

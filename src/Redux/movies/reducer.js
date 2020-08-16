@@ -8,32 +8,36 @@ const INITIAL_STATE = {
 const moviesReducer = (state = INITIAL_STATE, action) => {
   const { type, payload } = action;
   switch (type) {
-    case "SET_MOVIES":
+    case "SET_MOVIES": // payload is array
       return {
         ...state,
         movies: payload,
       };
-    case "SET_MOVIE":
+    case "SET_MOVIE": // payload is object
       return {
         ...state,
         movie: payload,
       };
-    case "SET_TOTAL_PAGE":
+    case "SET_TOTAL_PAGE": // payload is number
       return {
         ...state,
         totalPages: payload,
       };
-    case "SET_PRICES":
+    case "SET_PRICES": // payload is number
       return {
         ...state,
-        prices: payload,
+        prices: {
+          ...state.prices,
+          [payload.id]: { id: payload.id, price: payload.price },
+        },
       };
-    case "CLEAR_MOVIES":
+    case "CLEAR_MOVIES": // no payload
       return {
         ...state,
         movies: [],
+        totalPages: 0,
       };
-    case "CLEAR_MOVIE":
+    case "CLEAR_MOVIE": // no payload
       return {
         ...state,
         movie: null,

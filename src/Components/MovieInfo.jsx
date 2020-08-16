@@ -1,7 +1,9 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Button } from "@material-ui/core";
+import { Button, Typography } from "@material-ui/core";
 import CardInfo from "./CardInfo";
+import { useDispatch } from "react-redux";
+import styled from "styled-components";
 
 const useStyles = makeStyles((theme) => ({
   Container: {
@@ -11,19 +13,13 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     maxWidth: 1000,
     margin: "auto",
-    padding: 50,
-    backgroundColor: "rgba(0,0,0,0.1)",
-    border: "1px solid rgba(0,0,0,0.2)",
-  },
-  info: {
-    display: "grid",
-    gridTemplateColumns: "2fr 1fr",
-    gridGap: "20px 10px",
+    padding: "50px 20px",
+    border: "1px solid #ccc",
   },
   overview: {
     padding: 10,
     color: "#fff",
-    border: `1px solid ${theme.colors.design.four}`,
+    border: `2px solid #ccc`,
     borderRadius: 5,
     wordBreak: "break-word",
   },
@@ -34,12 +30,8 @@ const useStyles = makeStyles((theme) => ({
     border: "none",
     borderRadius: 5,
   },
-  title: {
-    color: theme.colors.design.three,
-  },
   textOverview: {
     margin: "10px 0",
-    color: theme.colors.design.five,
   },
   poster: {
     width: "100%",
@@ -47,28 +39,50 @@ const useStyles = makeStyles((theme) => ({
     height: 400,
     borderRadius: 5,
     margin: "auto",
+    border: "2px solid black",
   },
   button: {
     marginTop: 20,
-    backgroundColor: theme.colors.design.two,
-    "&:hover": {
-      backgroundColor: "#258d80",
-    },
   },
   buying: {
     margin: "0 0 auto auto",
     padding: 20,
-    background: "rgba(255,255,255,.3)",
     borderRadius: 5,
   },
 }));
 
+const Info = styled.div`
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-gap: 20px 10px;
+
+  @media screen and (max-width: 600px) {
+    grid-template-columns: auto;
+  }
+`;
+
+const OverviewContainer = styled.div`
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  @media screen and (max-width: 600px) {
+    grid-template-columns: auto;
+  }
+`;
+
 export default function MovieInfo({ movie }) {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   return (
     <div className={classes.Container}>
-      <h1 className={classes.title}>{movie.title}</h1>
+      <Typography
+        component="h4"
+        variant="h4"
+        color="textPrimary"
+        className={classes.title}
+      >
+        {movie.title}
+      </Typography>
 
       <img
         alt={movie.title}
@@ -76,28 +90,43 @@ export default function MovieInfo({ movie }) {
         src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
       />
 
-      <div className={classes.info}>
+      <Info>
         <iframe
           title="youTube"
           className={classes.iframe}
           src={`https://www.youtube.com/embed/${movie.video}`}
+          allowFullScreen={true}
         ></iframe>
         <CardInfo detail={movie} />
-      </div>
-      <div style={{ display: "grid", gridTemplateColumns: "4fr 1fr" }}>
+      </Info>
+      <OverviewContainer>
         <div className={classes.overview}>
-          <h3 className={classes.title}>Overview</h3>
-          <p className={classes.textOverview}>
+          <Typography
+            color="textPrimary"
+            variant="h5"
+            component="h5"
+            className={classes.title}
+          >
+            Overview
+          </Typography>
+          <Typography color="textPrimary" className={classes.textOverview}>
             &nbsp;&nbsp;&nbsp;&nbsp; {movie.overview}
-          </p>
+          </Typography>
         </div>
         <div className={classes.buying}>
           <p align="center">
             Price - <strong>{movie.price}฿</strong>
           </p>
-          <Button className={classes.button}>Add to card</Button>
+          <Button
+            color="secondary"
+            variant="contained"
+            className={classes.button}
+            onClick={() => dispatch({ type: "ADD_ITEM", payload: movie })}
+          >
+            Add to card
+          </Button>
         </div>
-      </div>
+      </OverviewContainer>
     </div>
   );
 }

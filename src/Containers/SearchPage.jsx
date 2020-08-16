@@ -12,9 +12,13 @@ function SearchPage({ match }) {
 
   useEffect(() => {
     const fetchMovies = async () => {
+      const page = pageId ? pageId : 1;
       setLoading(true);
-      await dispatch(SearchMovie(id));
-      setLoading(false);
+      await dispatch(SearchMovie(id, page));
+
+      setTimeout(() => {
+        setLoading(false);
+      }, 300);
     };
 
     fetchMovies();

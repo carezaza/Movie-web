@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
     display: "grid",
     placeItems: "center",
-    backgroundColor: "#264653",
+    backgroundColor: "#E5E5E5",
   },
 }));
 
@@ -20,7 +20,7 @@ export default function Spinner() {
 
   return (
     <div className={classes.root}>
-      <CircularProgress style={{ color: "#E9C46A" }} />
+      <CircularProgress color="secondary" />
     </div>
   );
 }

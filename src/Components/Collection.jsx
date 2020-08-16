@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import CardMovie from "./CardMovie";
 import { useSelector } from "react-redux";
 import withSpinner from "./withSpinner";
+import styled from "styled-components";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -11,9 +12,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "30px 0",
   },
   movieContainer: {
-    display: "grid",
     padding: "30px 10px",
-    gridTemplateColumns: "repeat(4,auto)",
     gridGap: 20,
     width: "100%",
     border: "none",
@@ -24,18 +23,36 @@ const useStyles = makeStyles((theme) => ({
     color: theme.colors.design.three,
   },
 }));
+
+const ContainerCollection = styled.div`
+  display: ${({ movies }) => (movies > 3 ? "grid" : "flex")};
+  grid-template-columns: repeat(4, auto);
+  @media screen and (max-width: 992px) {
+    grid-template-columns: repeat(3, auto);
+  }
+  @media screen and (max-width: 750px) {
+    grid-template-columns: repeat(2, auto);
+  }
+  @media screen and (max-width: 480px) {
+    grid-template-columns: auto;
+  }
+`;
+
 function Collection() {
   const classes = useStyles();
   const { movies } = useSelector((state) => state.moviesReducer);
 
   return (
-    <div className={classes.movieContainer}>
+    <ContainerCollection
+      movies={movies.length}
+      className={classes.movieContainer}
+    >
       {!movies && !movies.length ? (
         <h2 className={classes.notFound}>Not found the movies.</h2>
       ) : (
         movies.map((movie) => <CardMovie key={movie.id} movie={movie} />)
       )}
-    </div>
+    </ContainerCollection>
   );
 }
 

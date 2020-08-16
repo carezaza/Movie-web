@@ -35,12 +35,7 @@ export default function MoviePage({ match }) {
       {movie ? (
         <React.Fragment>
           <Preview movie={movie} />
-          <div
-            style={{
-              borderTop: "1px solid rgba(0,0,0,0.5)",
-              background: "rgba(0,0,0,0.1)",
-            }}
-          >
+          <div>
             <MovieInfo movie={movie} />{" "}
           </div>
         </React.Fragment>

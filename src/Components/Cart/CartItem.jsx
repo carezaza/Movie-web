@@ -7,13 +7,16 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import ArrowLeftIcon from "@material-ui/icons/ArrowLeft";
 import ArrowRightIcon from "@material-ui/icons/ArrowRight";
+import DeleteIcon from "@material-ui/icons/Delete";
+import StyledLink from "../StyledLink";
+import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     margin: 5,
-    boxShadow:'none',
-    border: '1px solid #ccc'
+    boxShadow: "none",
+    border: "1px solid #ccc",
   },
   details: {
     display: "flex",
@@ -33,28 +36,52 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CartItem() {
+export default function CartItem({ item }) {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  const handleAddRemoveDelete = (action) => {
+    switch (action) {
+      case "increase":
+        return dispatch({ type: "INCREASE_ITEM", payload: item.id });
+      case "decrease":
+        return dispatch({ type: "DECREASE_ITEM", payload: item.id });
+      case "remove":
+        return dispatch({ type: "REMOVE_ITEM", payload: item.id });
+      default:
+        break;
+    }
+  };
 
   return (
     <Card className={classes.root}>
       <CardMedia
         className={classes.cover}
-        image="https://s.isanook.com/mv/0/rp/r/w728/ya0xa0m1w0/aHR0cHM6Ly9zLmlzYW5vb2suY29tL212LzAvdWQvMTcvODYyNDkvYXZlbmdlcnNpbmZpbml0eXdhci5qcGc=.jpg"
-        title="Live from space album cover"
+        image={`https://image.tmdb.org/t/p/w154/${item.poster_path}`}
+        title={item.title}
       />
       <div className={classes.details}>
         <CardContent className={classes.content}>
-          <h4>Live From Space</h4>
-          <Typography variant="subtitle2">Price - 150฿</Typography>
+          <StyledLink to={`/movie/${item.id}`}>
+            <h5>
+              {item.title.length > 15
+                ? item.title.slice(0, 15) + "..."
+                : item.title}
+            </h5>
+          </StyledLink>
+
+          <p style={{ fontSize: 14, fontWeight: 600 }}>Price - {item.price}฿</p>
         </CardContent>
         <div className={classes.controls}>
-          <IconButton>
+          <IconButton onClick={() => handleAddRemoveDelete("decrease")}>
             <ArrowLeftIcon />
           </IconButton>
-          <Typography>10</Typography>
-          <IconButton>
+          <Typography>{item.quantity}</Typography>
+          <IconButton onClick={() => handleAddRemoveDelete("increase")}>
             <ArrowRightIcon />
+          </IconButton>
+          <IconButton onClick={() => handleAddRemoveDelete("remove")}>
+            <DeleteIcon />
           </IconButton>
         </div>
       </div>

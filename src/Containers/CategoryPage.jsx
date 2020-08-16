@@ -12,9 +12,12 @@ function CategoryPage({ match }) {
 
   useEffect(() => {
     const fetchMovies = async () => {
+      const page = pageId ? pageId : 1;
       setLoading(true);
-      await dispatch(FetchMoviesFromType(id));
-      setLoading(false);
+      await dispatch(FetchMoviesFromType(id, page));
+      setTimeout(() => {
+        setLoading(false);
+      }, 300);
     };
 
     fetchMovies();
