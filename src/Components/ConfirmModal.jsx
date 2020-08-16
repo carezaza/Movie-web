@@ -52,7 +52,7 @@ export default function ConfirmModal({ open, time }) {
         }}
       >
         {time > 3 ? (
-          <p style={{ fontSize: 100 }}>{time}</p>
+          <p style={{ fontSize: 100 }}>{time - 4}</p>
         ) : (
           <p style={{ fontSize: 16 }}>Redirecting to home... {time}</p>
         )}
