@@ -5,7 +5,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexDirection: "column",
-    padding: "10px 20px",
+    padding: "20px",
     marginTop: "auto",
     background: theme.palette.background.paper,
     textAlign: "right",
@@ -29,16 +29,18 @@ function CartInfo({ totalQuantity, totalPrice, Action }) {
       <h3>ทั้งหมด</h3>
       <p>
         ราคา: <strong>{totalPrice - GetDiscount()} บาท</strong>
-        <small
-          style={{
-            textDecoration: "line-through",
-            margin: "0 5px",
-            fontWeight: 600,
-            color: "grey",
-          }}
-        >
-          {totalPrice} บาท
-        </small>
+        {totalQuantity > 3 && (
+          <small
+            style={{
+              textDecoration: "line-through",
+              margin: "0 5px",
+              fontWeight: 600,
+              color: "grey",
+            }}
+          >
+            {totalPrice} บาท
+          </small>
+        )}
       </p>
       <p>
         ส่วนลด: <strong>{GetDiscount()} บาท</strong>

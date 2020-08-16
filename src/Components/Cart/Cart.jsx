@@ -17,10 +17,8 @@ import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   button: {
-    margin: "10px 0",
     color: "#fff",
     width: "100%",
-    padding: 0,
   },
 }));
 
@@ -68,19 +66,16 @@ function Cart({ totalQuantity, totalPrice }) {
           totalQuantity={totalQuantity}
           totalPrice={totalPrice}
           Action={
-            <Button
-              variant="contained"
-              color="secondary"
-              className={classes.button}
-              disabled={!totalQuantity}
-            >
-              <StyledLink
-                to="/checkout"
-                style={{ width: "100%", height: "100%", padding: 5 }}
+            <StyledLink to="/checkout">
+              <Button
+                variant="contained"
+                color="secondary"
+                className={classes.button}
+                disabled={!totalQuantity}
               >
                 ตกลงสั่งซื้อ
-              </StyledLink>
-            </Button>
+              </Button>
+            </StyledLink>
           }
         />
       </Drawer>
