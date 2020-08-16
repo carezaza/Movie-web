@@ -26,6 +26,12 @@ const moviesReducer = (state = INITIAL_STATE, action) => {
     case "SET_PRICES": // payload is number
       return {
         ...state,
+        movies: state.movies.map((item) => {
+          if (item.id === payload.id) {
+            return { ...item, price: payload.price };
+          }
+          return item;
+        }),
         prices: {
           ...state.prices,
           [payload.id]: { id: payload.id, price: payload.price },
