@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Collection from "../../Components/Collection";
 import Pagination from "../../Components/Pagination";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,12 +22,20 @@ const useStyles = makeStyles((theme) => ({
   title: {
     margin: "20px 0",
   },
+  collect: {
+    minHeight: 500,
+    border: "1px solid #ccc",
+    padding: 10,
+    margin: 10,
+    display: "grid",
+    placeItems: "center",
+  },
 }));
 
 function WithPagination({ params, type, loading }) {
   const classes = useStyles();
   const { id, pageId } = params;
-
+  const page = pageId ? parseInt(pageId) : 1;
   const history = useHistory();
 
   // states from reducers
@@ -35,9 +44,9 @@ function WithPagination({ params, type, loading }) {
   const handlePaginate = (action) => {
     switch (action) {
       case "next":
-        return history.push(`/${type}/${id}/${parseInt(pageId) + 1}`);
+        return history.push(`/${type}/${id}/${parseInt(page) + 1}`);
       case "prev":
-        return history.push(`/${type}/${id}/${parseInt(pageId) - 1}`);
+        return history.push(`/${type}/${id}/${parseInt(page) - 1}`);
       case "first":
         return history.push(`/${type}/${id}/1`);
       case "last":
@@ -58,17 +67,20 @@ function WithPagination({ params, type, loading }) {
         >{`${
           type.charAt(0).toUpperCase() + type.slice(1, type.length)
         }: ${id}`}</Typography>
-        <Pagination
-          currentPage={pageId}
-          TotalPages={totalPages}
-          paginate={handlePaginate}
-        />
-        <Collection isLoading={loading} />
-        <Pagination
-          currentPage={pageId}
-          TotalPages={totalPages}
-          paginate={handlePaginate}
-        />
+
+        <div className={classes.collect}>
+          <Pagination
+            currentPage={page}
+            TotalPages={totalPages}
+            paginate={handlePaginate}
+          />
+          {loading ? <CircularProgress color="secondary" /> : <Collection />}
+          <Pagination
+            currentPage={page}
+            TotalPages={totalPages}
+            paginate={handlePaginate}
+          />
+        </div>
       </div>
     </div>
   );

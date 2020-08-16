@@ -100,7 +100,9 @@ export default function Preview({ movie, handleSwitch }) {
       <div className={classes.container}>
         <div className={classes.infoContainer}>
           <div className={classes.info}>
-            <h2 className={classes.margin}>{movie && movie.title}</h2>
+            <h2 className={classes.margin}>
+              {movie ? movie.title : "Not found movie."}
+            </h2>
             <p className={classes.margin}>{overview()}</p>
             <p className={classes.margin}>
               Price - <strong>{movie && movie.price}฿</strong>
@@ -114,7 +116,7 @@ export default function Preview({ movie, handleSwitch }) {
               Add to cart
             </Button>
 
-            {handleSwitch && (
+            {handleSwitch && movie && (
               <StyledLink to={`/movie/${movie.id}`}>
                 <Button
                   variant="outlined"

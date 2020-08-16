@@ -16,9 +16,7 @@ function SearchPage({ match }) {
       setLoading(true);
       await dispatch(SearchMovie(id, page));
 
-      setTimeout(() => {
-        setLoading(false);
-      }, 300);
+      setLoading(false);
     };
 
     fetchMovies();

@@ -2,7 +2,6 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import CardMovie from "./CardMovie";
 import { useSelector } from "react-redux";
-import withSpinner from "./withSpinner";
 import styled from "styled-components";
 
 const useStyles = makeStyles((theme) => ({
@@ -20,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     margin: "auto",
   },
   notFound: {
-    color: theme.colors.design.three,
+    margin: "auto",
   },
 }));
 
@@ -47,7 +46,7 @@ function Collection() {
       movies={movies.length}
       className={classes.movieContainer}
     >
-      {!movies && !movies.length ? (
+      {!movies.length ? (
         <h2 className={classes.notFound}>Not found the movies.</h2>
       ) : (
         movies.map((movie) => <CardMovie key={movie.id} movie={movie} />)
@@ -56,4 +55,4 @@ function Collection() {
   );
 }
 
-export default withSpinner(Collection);
+export default Collection;

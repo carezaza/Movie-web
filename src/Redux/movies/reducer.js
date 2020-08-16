@@ -1,4 +1,5 @@
 const INITIAL_STATE = {
+  search: "",
   movies: [],
   totalPages: 0,
   movie: null,
@@ -8,6 +9,11 @@ const INITIAL_STATE = {
 const moviesReducer = (state = INITIAL_STATE, action) => {
   const { type, payload } = action;
   switch (type) {
+    case "SET_SEARCH":
+      return {
+        ...state,
+        search: payload,
+      };
     case "SET_MOVIES": // payload is array
       return {
         ...state,

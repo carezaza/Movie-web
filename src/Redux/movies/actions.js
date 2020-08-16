@@ -55,28 +55,30 @@ export const SetMovie = (id) => async (dispatch, getState) => {
   } catch (error) {
     console.log(error);
     dispatch({
-      type: "SET_MOVIE",
-      payload: null,
+      type: "CLEAR_MOVIE",
     });
   }
 };
 
 // set many movies to reducer
 const SetMovies = (data) => (dispatch, getState) => {
-  const MyPrices = getState().moviesReducer.prices;
+  const { prices } = getState().moviesReducer;
 
-  const movies = data.results.map((m) => {
-    if (MyPrices[m.id]) {
-      return { ...m, price: MyPrices[m.id].price };
-    } else {
-      const price = random(500, 1000);
-      MyPrices[m.id] = { id: m.id, price };
-      return { ...m, price };
-    }
-  });
+  let movies = [];
+  if (data && data.results && data.results.length > 0) {
+    movies = data.results.map((m) => {
+      if (prices[m.id]) {
+        return { ...m, price: prices[m.id].price };
+      } else {
+        const price = random(500, 1000);
+        prices[m.id] = { id: m.id, price };
+        return { ...m, price };
+      }
+    });
 
-  dispatch({ type: "SET_MOVIES", payload: movies });
-  dispatch({ type: "SET_TOTAL_PAGE", payload: data.total_pages });
+    dispatch({ type: "SET_MOVIES", payload: movies });
+    dispatch({ type: "SET_TOTAL_PAGE", payload: data.total_pages });
+  }
 };
 
 // utils function
