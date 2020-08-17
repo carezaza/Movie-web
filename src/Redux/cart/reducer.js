@@ -32,13 +32,6 @@ const cartReducer = (state = INITIAL_STATE, action) => {
         ...state,
         carts: state.carts.filter((item) => item.id !== payload),
       };
-    case "SET_TOTAL_PRICE_AND_ITEMS":
-      return {
-        ...state,
-        totalItems: payload.totalItems,
-        totalPrice: payload.totalPrice,
-      };
-
     case "CLEAR_CARTS":
       return {
         ...state,
