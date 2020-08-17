@@ -71,7 +71,6 @@ function Cart({ totalQuantity, totalPrice }) {
                 variant="contained"
                 color="secondary"
                 className={classes.button}
-                disabled={!totalQuantity}
               >
                 ตกลงสั่งซื้อ
               </Button>
