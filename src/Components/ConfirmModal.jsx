@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+import StyledLink from "./StyledLink";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,9 +59,11 @@ export default function ConfirmModal({ open, time }) {
         )}
       </div>
       <div style={{ display: "grid", placeItems: "center", margin: 10 }}>
-        <Button color="secondary" variant="outlined">
-          Wait or click here to back to home
-        </Button>
+        <StyledLink to="/">
+          <Button color="secondary" variant="outlined">
+            Wait or click here to back to home
+          </Button>
+        </StyledLink>
       </div>
     </div>
   );

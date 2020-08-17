@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Button, IconButton } from "@material-ui/core";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
-import StyledLink from "../Components/StyledLink";
+import StyledLink from "./StyledLink";
 import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
