@@ -123,7 +123,7 @@ export default function MovieInfo({ movie }) {
             className={classes.button}
             onClick={() => dispatch({ type: "ADD_ITEM", payload: movie })}
           >
-            Add to card
+            Add to cart
           </Button>
         </div>
       </OverviewContainer>
